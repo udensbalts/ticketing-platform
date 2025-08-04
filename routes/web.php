@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Public\EventController as PublicEventController;;
+use App\Http\Controllers\EventRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,5 +36,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 Route::get('/events', [PublicEventController::class, 'index'])->name('public.events.index');
 Route::get('/events/{event}', [PublicEventController::class, 'show'])->name('public.events.show');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/events/{event}/register', [EventRegistrationController::class, 'register'])->name('events.register');
+    Route::post('/events/{event}/unregister', [EventRegistrationController::class, 'unregister'])->name('events.unregister');
+});
+
+
 
 require __DIR__.'/auth.php';

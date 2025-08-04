@@ -27,4 +27,10 @@ class Event extends Model
     'end_time' => 'datetime',
     'is_active' => 'boolean',
 ];
+
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'event_user');
+}
+
 }
