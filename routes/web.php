@@ -42,6 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/events/{event}/unregister', [EventRegistrationController::class, 'unregister'])->name('events.unregister');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-events', [App\Http\Controllers\ProfileController::class, 'myEvents'])
+        ->name('profile.my-events');
+});
+
+
 
 
 require __DIR__.'/auth.php';
